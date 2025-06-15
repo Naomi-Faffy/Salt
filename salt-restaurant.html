@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salt Restaurant - Luxury Dining in Harare, Zimbabwe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e7d3c7;
+            background: linear-gradient(135deg, #1c1917 0%, #92400e 50%, #ea580c 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(28, 25, 23, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(251, 146, 60, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fb923c;
+            text-decoration: none;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: rgba(251, 146, 60, 0.7);
+            margin-left: 10px;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #e7d3c7;
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #fb923c;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fb923c;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23292524" width="1920" height="1080"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid #fdba74;
+            color: #fb923c;
+            background: rgba(0,0,0,0.2);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero .brand {
+            color: #fb923c;
+        }
+
+        .hero .tagline {
+            font-size: 2.5rem;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #e7d3c7;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #c2410c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #9a3412;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fb923c;
+            border: 1px solid #fdba74;
+        }
+
+        .btn-outline:hover {
+            background: #fb923c;
+            color: black;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fb923c;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(231, 211, 199, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Experience Grid */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .experience-card {
+            background: rgba(28, 25, 23, 0.4);
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .experience-card:hover {
+            background: rgba(28, 25, 23, 0.6);
+        }
+
+        .experience-card .icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            color: #fb923c;
+        }
+
+        .experience-card h3 {
+            font-size: 1.3rem;
+            color: #fb923c;
+            margin-bottom: 1rem;
+        }
+
+        .experience-card p {
+            color: rgba(231, 211, 199, 0.7);
+            font-weight: 300;
+        }
+
+        /* Menu Grid */
+        .menu-bg {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, rgba(28, 25, 23, 0.6), rgba(194, 65, 12, 0.2));
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-card-image {
+            height: 200px;
+            background: #44403c;
+            position: relative;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect fill="%23292524" width="400" height="200"/></svg>');
+            background-size: cover;
+        }
+
+        .menu-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #c2410c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+
+        .menu-card h3 {
+            font-size: 1.5rem;
+            color: #fb923c;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card p {
+            color: rgba(231, 211, 199, 0.7);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .menu-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fb923c;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #fb923c;
+            font-size: 1rem;
+        }
+
+        /* Location Section */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .location-info h2 {
+            font-size: 3rem;
+            color: #fb923c;
+            margin-bottom: 2rem;
+        }
+
+        .location-info p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(231, 211, 199, 0.8);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item .icon {
+            width: 24px;
+            height: 24px;
+            color: #fb923c;
+            margin-top: 4px;
+        }
+
+        .contact-item h4 {
+            color: #fb923c;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: rgba(231, 211, 199, 0.7);
+            margin: 0;
+        }
+
+        .location-image {
+            height: 400px;
+            background: linear-gradient(135deg, rgba(194, 65, 12, 0.2), rgba(0, 0, 0, 0.4));
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            border-radius: 16px;
+            position: relative;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400"><rect fill="%23292524" width="500" height="400"/></svg>');
+            background-size: cover;
+        }
+
+        .location-pin {
+            position: absolute;
+            bottom: -24px;
+            right: -24px;
+            width: 96px;
+            height: 96px;
+            background: #c2410c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .location-pin .icon {
+            width: 48px;
+            height: 48px;
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-bg {
+            background: linear-gradient(90deg, rgba(194, 65, 12, 0.3), rgba(28, 25, 23, 0.4));
+        }
+
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(251, 146, 60, 0.2);
+            padding: 3rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            color: #fb923c;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(231, 211, 199, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #c2410c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-link:hover {
+            background: #9a3412;
+        }
+
+        .footer-section h4 {
+            color: #fb923c;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(231, 211, 199, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fb923c;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(251, 146, 60, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(231, 211, 199, 0.6);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(28, 25, 23, 0.95);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .floating-dot {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .dot-1 {
+            top: 25%;
+            left: 10%;
+            width: 8px;
+            height: 8px;
+            background: #fb923c;
+        }
+
+        .dot-2 {
+            top: 33%;
+            right: 20%;
+            width: 12px;
+            height: 12px;
+            background: #fdba74;
+            animation-delay: 1s;
+        }
+
+        .dot-3 {
+            bottom: 25%;
+            left: 25%;
+            width: 4px;
+            height: 4px;
+            background: #ea580c;
+            animation-delay: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">
+                SALT
+                <span class="logo-sub">HARARE</span>
+            </a>
+            <nav id="nav">
+                <a href="#menu">Menu</a>
+                <a href="#experience">Experience</a>
+                <a href="#location">Location</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-dot dot-1"></div>
+        <div class="floating-dot dot-2"></div>
+        <div class="floating-dot dot-3"></div>
+        
+        <div class="hero-content">
+            <div class="badge">Est. 2024 • Harare, Zimbabwe</div>
+            <h1>
+                <span class="brand">SALT</span><br>
+                <span class="tagline">Where Flavor Meets Art</span>
+            </h1>
+            <p>An extraordinary culinary journey in the heart of Zimbabwe, where traditional African flavors dance with contemporary gastronomy</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Reserve Your Table</a>
+                <a href="#menu" class="btn btn-outline">View Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">The Salt Experience</h2>
+            <p class="section-subtitle">More than dining, it's a sensory expedition through Zimbabwe's rich culinary heritage reimagined for the modern palate</p>
+            
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="icon">🍽️</div>
+                    <h3>Artisan Cuisine</h3>
+                    <p>Meticulously crafted dishes using locally sourced ingredients and innovative techniques</p>
+                </div>
+                <div class="experience-card">
+                    <div class="icon">🍷</div>
+                    <h3>Curated Wines</h3>
+                    <p>An exceptional selection of local and international wines paired perfectly with each dish</p>
+                </div>
+                <div class="experience-card">
+                    <div class="icon">👥</div>
+                    <h3>Intimate Atmosphere</h3>
+                    <p>Sophisticated ambiance designed for memorable moments and meaningful conversations</p>
+                </div>
+                <div class="experience-card">
+                    <div class="icon">🏆</div>
+                    <h3>Award Winning</h3>
+                    <p>Recognized for excellence in culinary innovation and exceptional service standards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-bg">
+        <div class="container">
+            <h2 class="section-title">Signature Selections</h2>
+            <p class="section-subtitle">A preview of our most celebrated dishes, each telling a story of Zimbabwe's culinary soul</p>
+            
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="menu-card-image">
+                        <div class="menu-badge">Chef's Choice</div>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3>Zimbabwean Fusion Tasting</h3>
+                        <p>A seven-course journey through Zimbabwe's diverse flavors, reimagined with contemporary techniques</p>
+                        <div class="menu-card-footer">
+                            <span class="price">$85</span>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-image"></div>
+                    <div class="menu-card-content">
+                        <h3>Dry-Aged Beef Tenderloin</h3>
+                        <p>Premium local beef, dry-aged for 28 days, served with indigenous vegetables and baobab jus</p>
+                        <div class="menu-card-footer">
+                            <span class="price">$65</span>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-image">
+                        <div class="menu-badge" style="background: #059669;">Seasonal</div>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3>Lake Kariba Catch</h3>
+                        <p>Fresh tiger fish prepared with traditional spices and served with wild rice and seasonal greens</p>
+                        <div class="menu-card-footer">
+                            <span class="price">$45</span>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn btn-outline">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location">
+        <div class="container">
+            <div class="location-grid">
+                <div class="location-info">
+                    <h2>Find Us in Harare</h2>
+                    <p>Located in the prestigious Borrowdale district, Salt offers an oasis of culinary excellence in Zimbabwe's vibrant capital city.</p>
+                    
+                    <div class="contact-item">
+                        <div class="icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Borrowdale Road, Borrowdale, Harare, Zimbabwe</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon">🕒</div>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Tuesday - Sunday: 6:00 PM - 11:00 PM</p>
+                            <p>Monday: Closed</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon">📞</div>
+                        <div>
+                            <h4>Reservations</h4>
+                            <p>+263 4 123 4567</p>
+                            <p>reservations@saltharare.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-image">
+                    <div class="location-pin">
+                        <div class="icon">📍</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-bg">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="section-title">Reserve Your Culinary Journey</h2>
+                <p class="section-subtitle">Experience the extraordinary. Book your table at Salt and discover why we're Harare's most celebrated dining destination.</p>
+                <div class="btn-group">
+                    <a href="tel:+263412345678" class="btn btn-primary">Make Reservation</a>
+                    <a href="tel:+263412345678" class="btn btn-outline">Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>SALT</h3>
+                    <p>Zimbabwe's premier luxury dining destination, where culinary artistry meets exceptional service in the heart of Harare.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">@</a>
+                        <a href="#" class="social-link">in</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#experience">Reservations</a></li>
+                        <li><a href="#location">Private Events</a></li>
+                        <li><a href="#contact">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>123 Borrowdale Road</li>
+                        <li>Harare, Zimbabwe</li>
+                        <li>+263 4 123 4567</li>
+                        <li>info@saltharare.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Salt Restaurant. All rights reserved. | Crafted with passion in Harare, Zimbabwe</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
