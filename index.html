@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salt Restaurant - Luxury Dining in Harare, Zimbabwe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,12 +12,24 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #b45309;
+            --secondary: #92400e;
+            --dark: #451a03;
+            --light: #fffbeb;
+            --accent: #fbbf24;
+            --accent-light: #fde68a;
+            --accent-lighter: #fed7aa;
+            --gold-gradient: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Playfair Display', serif;
             line-height: 1.6;
-            color: #fffbeb;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fed7aa 100%);
+            color: var(--light);
+            background: var(--dark);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
@@ -35,6 +48,12 @@
             border-bottom: 1px solid rgba(146, 64, 14, 0.2);
             z-index: 1000;
             padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -49,14 +68,21 @@
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            color: #b45309;
+            color: var(--primary);
             text-decoration: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent);
         }
 
         .logo-sub {
             font-size: 0.7rem;
-            color: #92400e;
+            color: var(--secondary);
             margin-left: 10px;
             letter-spacing: 2px;
         }
@@ -67,23 +93,39 @@
         }
 
         nav a {
-            color: #451a03;
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav a:hover:after {
+            width: 100%;
         }
 
         nav a:hover {
-            color: #b45309;
-            transform: translateY(-1px);
+            color: var(--primary);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: #b45309;
+            color: var(--primary);
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -96,40 +138,46 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: linear-gradient(rgba(69, 26, 3, 0.7), rgba(146, 64, 14, 0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23fed7aa" width="1920" height="1080"/></svg>');
+            background: linear-gradient(rgba(69, 26, 3, 0.7), rgba(146, 64, 14, 0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
 
         .hero-content {
             max-width: 800px;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .badge {
             display: inline-block;
             padding: 8px 16px;
-            border: 1px solid #fbbf24;
-            color: #fbbf24;
+            border: 1px solid var(--accent);
+            color: var(--accent);
             background: rgba(69, 26, 3, 0.8);
             border-radius: 25px;
             font-size: 0.9rem;
             margin-bottom: 2rem;
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
         }
 
         .hero h1 {
             font-size: 4rem;
             font-weight: bold;
             margin-bottom: 1rem;
-            color: #fffbeb;
+            color: var(--light);
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-family: 'Playfair Display', serif;
         }
 
         .hero .brand {
-            color: #fbbf24;
+            color: var(--accent);
             text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            display: block;
         }
 
         .hero .tagline {
@@ -137,16 +185,19 @@
             font-weight: 300;
             font-style: italic;
             margin-bottom: 2rem;
-            color: #fde68a;
+            color: var(--accent-light);
             text-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            color: #fffbeb;
+            color: var(--light);
             font-weight: 300;
             text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .btn-group {
@@ -166,30 +217,32 @@
             text-decoration: none;
             display: inline-block;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #b45309, #92400e);
-            color: #fffbeb;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--light);
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #92400e, #451a03);
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
         .btn-outline {
             background: rgba(255, 251, 235, 0.1);
-            color: #fbbf24;
-            border: 1px solid #fbbf24;
+            color: var(--accent);
+            border: 1px solid var(--accent);
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .btn-outline:hover {
-            background: #fbbf24;
-            color: #451a03;
+            background: var(--accent);
+            color: var(--dark);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(251, 191, 36, 0.3);
         }
@@ -197,26 +250,53 @@
         /* Sections */
         section {
             padding: 5rem 0;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
             font-size: 3rem;
             font-weight: bold;
-            color: #451a03;
+            color: var(--light);
             margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto;
+            border-radius: 2px;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.2rem;
-            color: #92400e;
+            color: var(--accent-light);
             margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+        }
+
+        /* Background overlays */
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
         }
 
         /* Experience Grid */
@@ -225,48 +305,60 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            position: relative;
+            z-index: 2;
         }
 
         .experience-card {
-            background: linear-gradient(135deg, rgba(69, 26, 3, 0.9), rgba(146, 64, 14, 0.8));
+            background: rgba(69, 26, 3, 0.7);
             border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            backdrop-filter: blur(8px);
         }
 
         .experience-card:hover {
-            background: linear-gradient(135deg, rgba(69, 26, 3, 1), rgba(146, 64, 14, 0.9));
+            background: rgba(69, 26, 3, 0.8);
             transform: translateY(-5px);
             box-shadow: 0 12px 35px rgba(0,0,0,0.2);
         }
 
         .experience-card .icon {
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             margin: 0 auto 1rem;
-            color: #fbbf24;
+            color: var(--accent);
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
         }
 
         .experience-card h3 {
             font-size: 1.3rem;
-            color: #fbbf24;
+            color: var(--accent);
             margin-bottom: 1rem;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         .experience-card p {
-            color: #fffbeb;
+            color: var(--light);
             font-weight: 300;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         /* Menu Grid */
         .menu-bg {
-            background: rgba(253, 230, 138, 0.3);
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .menu-grid {
@@ -274,15 +366,18 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            position: relative;
+            z-index: 2;
         }
 
         .menu-card {
-            background: linear-gradient(135deg, rgba(69, 26, 3, 0.95), rgba(146, 64, 14, 0.9));
+            background: rgba(69, 26, 3, 0.75);
             border: 1px solid rgba(251, 191, 36, 0.4);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.3s;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(8px);
         }
 
         .menu-card:hover {
@@ -292,23 +387,23 @@
 
         .menu-card-image {
             height: 200px;
-            background: linear-gradient(135deg, #92400e, #451a03);
-            position: relative;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect fill="%23451a03" width="400" height="200"/></svg>');
             background-size: cover;
+            background-position: center;
+            position: relative;
         }
 
         .menu-badge {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #451a03;
+            background: var(--gold-gradient);
+            color: var(--dark);
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            z-index: 2;
         }
 
         .menu-card-content {
@@ -317,16 +412,17 @@
 
         .menu-card h3 {
             font-size: 1.5rem;
-            color: #fbbf24;
+            color: var(--accent);
             margin-bottom: 0.5rem;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         .menu-card p {
-            color: #fffbeb;
+            color: var(--light);
             margin-bottom: 1rem;
             font-weight: 300;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            min-height: 80px;
         }
 
         .menu-card-footer {
@@ -338,7 +434,7 @@
         .price {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #fbbf24;
+            color: var(--accent);
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
@@ -348,23 +444,40 @@
         }
 
         .star {
-            color: #fbbf24;
+            color: var(--accent);
             font-size: 1rem;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
+        /* Events Section */
+        .events-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
         /* Location Section */
+        .location-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1589010588553-46e8e7c21788?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
         .location-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
             margin-top: 3rem;
+            position: relative;
+            z-index: 2;
         }
 
         .location-info h2 {
             font-size: 3rem;
-            color: #451a03;
+            color: var(--light);
             margin-bottom: 2rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -372,7 +485,7 @@
         .location-info p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            color: #92400e;
+            color: var(--accent-light);
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
@@ -382,26 +495,27 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background: rgba(69, 26, 3, 0.1);
+            background: rgba(69, 26, 3, 0.3);
             border-radius: 8px;
-            border-left: 4px solid #b45309;
+            border-left: 4px solid var(--accent);
+            backdrop-filter: blur(5px);
         }
 
         .contact-item .icon {
             width: 24px;
             height: 24px;
-            color: #b45309;
+            color: var(--accent);
             margin-top: 4px;
         }
 
         .contact-item h4 {
-            color: #451a03;
+            color: var(--light);
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
         .contact-item p {
-            color: #92400e;
+            color: var(--accent-light);
             margin: 0;
             font-weight: 500;
         }
@@ -412,8 +526,9 @@
             border: 2px solid rgba(251, 191, 36, 0.3);
             border-radius: 20px;
             position: relative;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400"><rect fill="%23451a03" width="500" height="400"/></svg>');
+            background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');
             background-size: cover;
+            background-position: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -423,7 +538,7 @@
             right: -24px;
             width: 96px;
             height: 96px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: var(--gold-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -434,18 +549,23 @@
         .location-pin .icon {
             width: 48px;
             height: 48px;
-            color: #451a03;
+            color: var(--dark);
         }
 
         /* CTA Section */
         .cta-bg {
-            background: linear-gradient(90deg, rgba(253, 230, 138, 0.5), rgba(254, 215, 170, 0.4));
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .cta-content {
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         /* Footer */
@@ -453,7 +573,7 @@
             background: linear-gradient(135deg, rgba(69, 26, 3, 0.95), rgba(146, 64, 14, 0.9));
             border-top: 1px solid rgba(251, 191, 36, 0.2);
             padding: 3rem 0;
-            color: #fffbeb;
+            color: var(--light);
         }
 
         .footer-grid {
@@ -465,13 +585,13 @@
 
         .footer-brand h3 {
             font-size: 2rem;
-            color: #fbbf24;
+            color: var(--accent);
             margin-bottom: 1rem;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         .footer-brand p {
-            color: #fffbeb;
+            color: var(--light);
             margin-bottom: 1rem;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
@@ -484,12 +604,12 @@
         .social-link {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: var(--gold-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #451a03;
+            color: var(--dark);
             text-decoration: none;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -502,7 +622,7 @@
         }
 
         .footer-section h4 {
-            color: #fbbf24;
+            color: var(--accent);
             margin-bottom: 1rem;
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
@@ -516,14 +636,14 @@
         }
 
         .footer-section ul li a {
-            color: #fffbeb;
+            color: var(--light);
             text-decoration: none;
             transition: all 0.3s;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .footer-section ul li a:hover {
-            color: #fbbf24;
+            color: var(--accent);
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
         }
 
@@ -604,6 +724,7 @@
             position: absolute;
             border-radius: 50%;
             animation: pulse 3s infinite;
+            z-index: 1;
         }
 
         .dot-1 {
@@ -641,7 +762,7 @@
         }
 
         .section-title {
-            background: linear-gradient(135deg, #451a03, #92400e, #b45309);
+            background: linear-gradient(135deg, #fde68a, #fbbf24, #fed7aa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -653,12 +774,14 @@
     <header>
         <div class="header-content">
             <a href="#" class="logo">
+                <i class="fas fa-pepper-hot"></i>
                 SALT
                 <span class="logo-sub">HARARE</span>
             </a>
             <nav id="nav">
                 <a href="#menu">Menu</a>
                 <a href="#experience">Experience</a>
+                <a href="#events">Events</a>
                 <a href="#location">Location</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -668,6 +791,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="bg-overlay"></div>
         <div class="floating-dot dot-1"></div>
         <div class="floating-dot dot-2"></div>
         <div class="floating-dot dot-3"></div>
@@ -688,28 +812,29 @@
 
     <!-- Experience Section -->
     <section id="experience">
+        <div class="bg-overlay"></div>
         <div class="container">
             <h2 class="section-title">The Salt Experience</h2>
             <p class="section-subtitle">More than dining, it's a sensory expedition through Zimbabwe's rich culinary heritage reimagined for the modern palate</p>
             
             <div class="experience-grid">
                 <div class="experience-card">
-                    <div class="icon">🍽️</div>
+                    <div class="icon"><i class="fas fa-utensils"></i></div>
                     <h3>Artisan Cuisine</h3>
                     <p>Meticulously crafted dishes using locally sourced ingredients and innovative techniques</p>
                 </div>
                 <div class="experience-card">
-                    <div class="icon">🍷</div>
+                    <div class="icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <h3>Curated Wines</h3>
                     <p>An exceptional selection of local and international wines paired perfectly with each dish</p>
                 </div>
                 <div class="experience-card">
-                    <div class="icon">👥</div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
                     <h3>Intimate Atmosphere</h3>
                     <p>Sophisticated ambiance designed for memorable moments and meaningful conversations</p>
                 </div>
                 <div class="experience-card">
-                    <div class="icon">🏆</div>
+                    <div class="icon"><i class="fas fa-award"></i></div>
                     <h3>Award Winning</h3>
                     <p>Recognized for excellence in culinary innovation and exceptional service standards</p>
                 </div>
@@ -719,13 +844,14 @@
 
     <!-- Menu Section -->
     <section id="menu" class="menu-bg">
+        <div class="bg-overlay"></div>
         <div class="container">
             <h2 class="section-title">Signature Selections</h2>
             <p class="section-subtitle">A preview of our most celebrated dishes, each telling a story of Zimbabwe's culinary soul</p>
             
             <div class="menu-grid">
                 <div class="menu-card">
-                    <div class="menu-card-image">
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');">
                         <div class="menu-badge">Chef's Choice</div>
                     </div>
                     <div class="menu-card-content">
@@ -745,7 +871,7 @@
                 </div>
 
                 <div class="menu-card">
-                    <div class="menu-card-image"></div>
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1546964124-0cce460f38ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1070&q=80');"></div>
                     <div class="menu-card-content">
                         <h3>Dry-Aged Beef Tenderloin</h3>
                         <p>Premium local beef, dry-aged for 28 days, served with indigenous vegetables and baobab jus</p>
@@ -763,7 +889,7 @@
                 </div>
 
                 <div class="menu-card">
-                    <div class="menu-card-image">
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');">
                         <div class="menu-badge" style="background: linear-gradient(135deg, #fed7aa, #fdba74);">Seasonal</div>
                     </div>
                     <div class="menu-card-content">
@@ -783,14 +909,59 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 3rem;">
+            <div style="text-align: center; margin-top: 3rem; position: relative; z-index: 2;">
                 <a href="#" class="btn btn-outline">View Full Menu</a>
             </div>
         </div>
     </section>
 
+    <!-- Events Section -->
+    <section id="events" class="events-bg">
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <h2 class="section-title">Exclusive Events</h2>
+            <p class="section-subtitle">Host your special moments in our elegant private dining spaces, designed for unforgettable celebrations</p>
+            
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');">
+                        <div class="menu-badge" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">Private Dining</div>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3>Private Dining Experience</h3>
+                        <p>Exclusive space for up to 20 guests with personalized menu and dedicated service team</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');">
+                        <div class="menu-badge" style="background: linear-gradient(135deg, #fed7aa, #fdba74);">Wine Tasting</div>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3>Sommelier Selection</h3>
+                        <p>Curated wine experiences featuring rare vintages and perfect food pairings</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');">
+                        <div class="menu-badge" style="background: linear-gradient(135deg, #b45309, #92400e);">Chef's Table</div>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3>Kitchen Experience</h3>
+                        <p>Front-row seats to culinary artistry with bespoke tasting menus and chef interaction</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Location Section -->
-    <section id="location">
+    <section id="location" class="location-bg">
+        <div class="bg-overlay"></div>
         <div class="container">
             <div class="location-grid">
                 <div class="location-info">
@@ -798,7 +969,7 @@
                     <p>Located in the prestigious Borrowdale district, Salt offers an oasis of culinary excellence in Zimbabwe's vibrant capital city.</p>
                     
                     <div class="contact-item">
-                        <div class="icon">📍</div>
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <h4>Address</h4>
                             <p>123 Borrowdale Road, Borrowdale, Harare, Zimbabwe</p>
@@ -806,7 +977,7 @@
                     </div>
 
                     <div class="contact-item">
-                        <div class="icon">🕒</div>
+                        <div class="icon"><i class="fas fa-clock"></i></div>
                         <div>
                             <h4>Hours</h4>
                             <p>Tuesday - Sunday: 6:00 PM - 11:00 PM</p>
@@ -815,7 +986,7 @@
                     </div>
 
                     <div class="contact-item">
-                        <div class="icon">📞</div>
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
                         <div>
                             <h4>Reservations</h4>
                             <p>+263 4 123 4567</p>
@@ -826,7 +997,7 @@
 
                 <div class="location-image">
                     <div class="location-pin">
-                        <div class="icon">📍</div>
+                        <div class="icon"><i class="fas fa-map-pin"></i></div>
                     </div>
                 </div>
             </div>
@@ -835,6 +1006,7 @@
 
     <!-- CTA Section -->
     <section id="contact" class="cta-bg">
+        <div class="bg-overlay"></div>
         <div class="container">
             <div class="cta-content">
                 <h2 class="section-title">Reserve Your Culinary Journey</h2>
@@ -855,9 +1027,9 @@
                     <h3>SALT</h3>
                     <p>Zimbabwe's premier luxury dining destination, where culinary artistry meets exceptional service in the heart of Harare.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link">f</a>
-                        <a href="#" class="social-link">@</a>
-                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
 
@@ -866,7 +1038,7 @@
                     <ul>
                         <li><a href="#menu">Menu</a></li>
                         <li><a href="#experience">Reservations</a></li>
-                        <li><a href="#location">Private Events</a></li>
+                        <li><a href="#events">Private Events</a></li>
                         <li><a href="#contact">Gift Cards</a></li>
                     </ul>
                 </div>
@@ -899,6 +1071,16 @@
             link.addEventListener('click', () => {
                 document.getElementById('nav').classList.remove('active');
             });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
     </script>
 </body>
